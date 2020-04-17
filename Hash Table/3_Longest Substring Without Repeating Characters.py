@@ -19,6 +19,8 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 '''
 
+# time complexity O(n)
+
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
@@ -26,12 +28,11 @@ class Solution(object):
         :rtype: int
         """
         dic = {}
-        length = 0
+        max_len = 0
         start = 0
-        for i, val in enumerate(s):
-            if val in dic and start <= dic[val]:
-                start = dic[val] + 1
-            else:
-                length = max(length, i - start + 1)
-            dic[val] = i
-        return length
+        for i, ch in enumerate(s):
+            if ch in dic:
+                max_len = max(max_len, i - start)
+                start = max(start, dic[ch]+1)
+            dic[ch] = i
+        return max(max_len,len(s) - start)
